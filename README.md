@@ -28,8 +28,7 @@ ShopKart/
 │   ├── models/          # Mongoose database schemas
 │   ├── routes/          # API endpoints
 │   ├── utils/           # Helper functions
-│   ├── index.js         # Express server entry point
-│   └── .env.example     # Environment variable template
+│   └── index.js         # Express server entry point
 ├── frontend/
 │   ├── public/          # Static assets
 │   ├── src/             # React application source code
@@ -51,7 +50,7 @@ cd Shopkart
 cd backend
 npm install
 ```
-Create a `.env` file in the `backend` folder based on `.env.example`:
+Create a `.env` file in the `backend` folder:
 ```env
 dbUrl = "your_mongodb_connection_string"
 JWT_SECRET = "your_jwt_secret"
