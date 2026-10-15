@@ -23,15 +23,30 @@ if (!process.env.dbUrl) {
     dotenv.config()
 }
 
-if (!process.env.dbUrl) {
-    console.error("MongoDB Error: dbUrl environment variable is not defined. Please check your .env file.")
-} else {
-    mongoose.connect(process.env.dbUrl).then(() => {
-        console.log("Db Connected")
-    }).catch((err) => {
-        console.error("MongoDB Connection Error:", err.message || err)
-    })
+let cachedDB = null
+
+const connectDB = async () => {
+    if (mongoose.connection.readyState >= 1) {
+        return mongoose.connection
+    }
+    if (!process.env.dbUrl) {
+        console.error("MongoDB Error: dbUrl environment variable is not defined.")
+        return null
+    }
+    if (!cachedDB) {
+        cachedDB = mongoose.connect(process.env.dbUrl).then((m) => {
+            console.log("Db Connected")
+            return m
+        }).catch((err) => {
+            console.error("MongoDB Connection Error:", err.message || err)
+            cachedDB = null
+            throw err
+        })
+    }
+    return cachedDB
 }
+
+connectDB()
 
 const allowedOrigins = [
     "http://localhost:5173",
@@ -52,20 +67,39 @@ app.use(cors({
 app.use(express.json())
 app.use(cookieParser())
 
+app.use(async (req, res, next) => {
+    try {
+        await connectDB()
+        next()
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Database connection error", error: err.message })
+    }
+})
+
 app.use('/customers', customerRoutes)
 app.use('/products', productRoutes)
 app.use('/wishlist', wishlistRoutes)
 app.use('/cart', cartRoutes)
 app.use('/orders', orderRoutes)
 
-app.get('/health', (req, res) => {
+app.use('/api/customers', customerRoutes)
+app.use('/api/products', productRoutes)
+app.use('/api/wishlist', wishlistRoutes)
+app.use('/api/cart', cartRoutes)
+app.use('/api/orders', orderRoutes)
+
+app.get(['/health', '/api/health'], (req, res) => {
     res.status(200).json({ status: 'ok', message: 'Server is running' })
 })
 
-app.get('/', (req, res) => {
+app.get(['/', '/api'], (req, res) => {
     res.send('Welcome Customer')
 })
 
-app.listen(Port, "0.0.0.0", () => {
-    console.log(`Server Started at ${Port}`)
-})
+if (!process.env.VERCEL) {
+    app.listen(Port, "0.0.0.0", () => {
+        console.log(`Server Started at ${Port}`)
+    })
+}
+
+export default app
