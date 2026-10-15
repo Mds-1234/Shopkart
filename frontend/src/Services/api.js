@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:8085";
+import { API_BASE_URL } from "../config";
+
+const BASE_URL = API_BASE_URL;
 
 export const createPaymentOrder = async (shippingAddress) => {
     const response = await fetch(`${BASE_URL}/orders/create-payment-order`, {

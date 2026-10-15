@@ -2,8 +2,9 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useCart } from '../Context/CartContext.jsx';
+import { API_BASE_URL } from '../config';
 
-const BASE_URL = "http://localhost:8085";
+const BASE_URL = API_BASE_URL;
 
 const ProductDetails = ({ userData, setUserData }) => {
     const { id } = useParams();

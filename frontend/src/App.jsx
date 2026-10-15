@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from "./config";
 
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
@@ -19,7 +20,7 @@ function App() {
   const checkUser = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8085/customers/me",
+        `${API_BASE_URL}/customers/me`,
         {
           credentials: "include"
         }

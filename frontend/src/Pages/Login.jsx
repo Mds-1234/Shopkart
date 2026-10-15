@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 function Login({ setUserData }) {
     const [email, setEmail] = useState("");
@@ -38,7 +39,7 @@ function Login({ setUserData }) {
             setServerError("");
 
             const response = await fetch(
-                "http://localhost:8085/customers/login",
+                `${API_BASE_URL}/customers/login`,
                 {
                     method: "POST",
                     headers: {

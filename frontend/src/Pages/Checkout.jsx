@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { useCart } from "../Context/CartContext.jsx"
 import { createPaymentOrder, verifyPayment } from "../Services/api.js"
+import { API_BASE_URL } from "../config"
 
 const initialForm = {
     fullName: "",
@@ -54,7 +55,7 @@ const Checkout = ({ userData, setUserData }) => {
 
         const fetchWishlistCount = async () => {
             try {
-                const response = await fetch("http://localhost:8085/wishlist", {
+                const response = await fetch(`${API_BASE_URL}/wishlist`, {
                     credentials: "include"
                 })
 

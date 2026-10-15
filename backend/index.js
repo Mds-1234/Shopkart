@@ -16,7 +16,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
-const Port = 8085
+const Port = process.env.PORT || 8085
 
 dotenv.config({ path: path.resolve(__dirname, '.env') })
 if (!process.env.dbUrl) {
@@ -33,24 +33,39 @@ if (!process.env.dbUrl) {
     })
 }
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    process.env.CLIENT_URL
+].filter(Boolean)
+
 app.use(cors({
-    origin: true,
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin) || (process.env.CLIENT_URL && origin.startsWith(process.env.CLIENT_URL.replace(/\/+$/, "")))) {
+            return callback(null, true)
+        }
+        return callback(null, true)
+    },
     credentials: true
 }))
+
 app.use(express.json())
 app.use(cookieParser())
 
-app.use('/customers' , customerRoutes)
-app.use('/products',productRoutes)
+app.use('/customers', customerRoutes)
+app.use('/products', productRoutes)
 app.use('/wishlist', wishlistRoutes)
 app.use('/cart', cartRoutes)
-app.use("/orders", orderRoutes)
+app.use('/orders', orderRoutes)
+
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', message: 'Server is running' })
+})
 
 app.get('/', (req, res) => {
     res.send('Welcome Customer')
 })
 
-
-app.listen(Port, () => {
+app.listen(Port, "0.0.0.0", () => {
     console.log(`Server Started at ${Port}`)
 })

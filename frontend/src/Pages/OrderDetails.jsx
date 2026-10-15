@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { getOrderById, updateOrderStatus } from "../Services/api.js"
+import { API_BASE_URL } from "../config"
 
 const progressionStages = [
     { key: "PLACED", label: "Order Placed" },
@@ -66,7 +67,7 @@ const OrderDetails = ({ userData, setUserData }) => {
 
     const fetchWishlistCount = useCallback(async () => {
         try {
-            const response = await fetch("http://localhost:8085/wishlist", {
+            const response = await fetch(`${API_BASE_URL}/wishlist`, {
                 credentials: "include"
             })
             if (response.ok) {

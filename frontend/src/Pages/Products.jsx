@@ -2,8 +2,9 @@ import { useEffect, useState, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
+import { API_BASE_URL } from '../config';
 
-const BASE_URL = "http://localhost:8085";
+const BASE_URL = API_BASE_URL;
 
 const Products = ({ userData, setUserData }) => {
     const navigate = useNavigate();
@@ -116,7 +117,7 @@ const Products = ({ userData, setUserData }) => {
 
     const fetchCategories = async () => {
         try {
-            const res = await fetch("http://localhost:8085/products/categories");
+            const res = await fetch(`${BASE_URL}/products/categories`);
             if (res.ok) {
                 const data = await res.json();
                 if (data.categories && data.categories.length > 0) {
@@ -142,7 +143,7 @@ const Products = ({ userData, setUserData }) => {
             }
 
             const queryString = params.toString();
-            const url = `http://localhost:8085/products${queryString ? `?${queryString}` : ""}`;
+            const url = `${BASE_URL}/products${queryString ? `?${queryString}` : ""}`;
 
             const response = await fetch(url);
             if (!response.ok) {

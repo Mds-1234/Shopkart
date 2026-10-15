@@ -2,8 +2,9 @@ import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import WishlistCard from '../components/WishlistCard';
+import { API_BASE_URL } from '../config';
 
-const BASE_URL = "http://localhost:8085";
+const BASE_URL = API_BASE_URL;
 
 const Wishlist = ({ userData, setUserData }) => {
     const navigate = useNavigate();

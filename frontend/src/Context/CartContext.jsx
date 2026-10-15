@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
+import { API_BASE_URL } from "../config"
 
 const CartContext = createContext()
 
@@ -12,7 +13,7 @@ export const CartProvider = ({ children }) => {
             setCartLoading(true)
             setCartError("")
 
-            const response = await fetch("http://localhost:8085/cart", {
+            const response = await fetch(`${API_BASE_URL}/cart`, {
                 method: "GET",
                 credentials: "include"
             })
@@ -41,7 +42,7 @@ export const CartProvider = ({ children }) => {
     const addToCart = async (productId) => {
         try {
             const response = await fetch(
-                `http://localhost:8085/cart/${productId}`,
+                `${API_BASE_URL}/cart/${productId}`,
                 {
                     method: "POST",
                     credentials: "include"
@@ -76,7 +77,7 @@ export const CartProvider = ({ children }) => {
     const updateCartQuantity = async (productId, quantity) => {
         try {
             const response = await fetch(
-                `http://localhost:8085/cart/${productId}`,
+                `${API_BASE_URL}/cart/${productId}`,
                 {
                     method: "PATCH",
                     headers: {
@@ -117,7 +118,7 @@ export const CartProvider = ({ children }) => {
     const removeFromCart = async (productId) => {
         try {
             const response = await fetch(
-                `http://localhost:8085/cart/${productId}`,
+                `${API_BASE_URL}/cart/${productId}`,
                 {
                     method: "DELETE",
                     credentials: "include"

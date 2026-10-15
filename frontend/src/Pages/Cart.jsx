@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { useCart } from "../Context/CartContext.jsx"
+import { API_BASE_URL } from "../config"
 
 const Cart = ({ userData, setUserData }) => {
     const {
@@ -20,7 +21,7 @@ const Cart = ({ userData, setUserData }) => {
     const fetchWishlistCount = async () => {
         try {
             const response = await fetch(
-                "http://localhost:8085/wishlist",
+                `${API_BASE_URL}/wishlist`,
                 {
                     method: "GET",
                     credentials: "include"

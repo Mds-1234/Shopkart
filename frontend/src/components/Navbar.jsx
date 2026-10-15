@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useCart } from "../Context/CartContext.jsx"
+import { API_BASE_URL } from "../config"
 
 const Navbar = ({ userData, setUserData, wishlistCount = 0 }) => {
     const navigate = useNavigate()
@@ -7,7 +8,7 @@ const Navbar = ({ userData, setUserData, wishlistCount = 0 }) => {
 
     const handleLogout = async () => {
         try {
-            await fetch("http://localhost:8085/customers/logout", {
+            await fetch(`${API_BASE_URL}/customers/logout`, {
                 method: "POST",
                 credentials: "include"
             })

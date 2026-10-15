@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 function Register() {
     const [fullName, setFullName] = useState("");
@@ -51,7 +52,7 @@ function Register() {
             setServerError("");
 
             const response = await fetch(
-                "http://localhost:8085/customers/register",
+                `${API_BASE_URL}/customers/register`,
                 {
                     method: "POST",
                     headers: {

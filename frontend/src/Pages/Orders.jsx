@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react"
 import { Link } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { getOrders } from "../Services/api.js"
+import { API_BASE_URL } from "../config"
 
 const getStatusBadge = (status) => {
     switch (status) {
@@ -52,7 +53,7 @@ const Orders = ({ userData, setUserData }) => {
 
     const fetchWishlistCount = useCallback(async () => {
         try {
-            const response = await fetch("http://localhost:8085/wishlist", {
+            const response = await fetch(`${API_BASE_URL}/wishlist`, {
                 credentials: "include"
             })
             if (response.ok) {
