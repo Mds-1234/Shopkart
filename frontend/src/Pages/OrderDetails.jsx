@@ -207,7 +207,6 @@ const OrderDetails = ({ userData, setUserData }) => {
             {navbar}
 
             <main className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10">
-                {/* Navigation Breadcrumb */}
                 <div className="mb-6 flex items-center justify-between">
                     <Link
                         to="/orders"
@@ -227,7 +226,6 @@ const OrderDetails = ({ userData, setUserData }) => {
                     </button>
                 </div>
 
-                {/* Page Title & Badges */}
                 <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                         <div className="flex flex-wrap items-center gap-3">
@@ -262,7 +260,6 @@ const OrderDetails = ({ userData, setUserData }) => {
                     </div>
                 </div>
 
-                {/* Visual Order Status Progression (Bonus Challenge +10 Marks) */}
                 <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm mb-6">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-2 mb-6">
                         <div>
@@ -325,7 +322,6 @@ const OrderDetails = ({ userData, setUserData }) => {
                         </div>
                     </div>
 
-                    {/* Development & Testing Control */}
                     <div className="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/60 p-3.5 rounded-xl">
                         <span className="text-xs text-slate-500 font-medium">
                             Status Progression Control (Bonus Challenge):
@@ -350,11 +346,8 @@ const OrderDetails = ({ userData, setUserData }) => {
                     </div>
                 </div>
 
-                {/* Grid Layout: Items & Identifiers on Left, Summary & Address on Right */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Left Column (Span 2) */}
                     <div className="lg:col-span-2 space-y-6">
-                        {/* Order Items */}
                         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
                             <h2 className="text-lg font-bold text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center justify-between">
                                 <span>Items Ordered ({totalQuantity})</span>
@@ -420,7 +413,6 @@ const OrderDetails = ({ userData, setUserData }) => {
                             </div>
                         </div>
 
-                        {/* Payment & Order Identifiers */}
                         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
                             <h2 className="text-lg font-bold text-slate-900 mb-4 pb-3 border-b border-slate-100">
                                 Order & Payment Identifiers
@@ -470,9 +462,7 @@ const OrderDetails = ({ userData, setUserData }) => {
                         </div>
                     </div>
 
-                    {/* Right Column (Span 1): Address & Summary */}
                     <div className="space-y-6">
-                        {/* Shipping Address */}
                         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
                             <h2 className="text-lg font-bold text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
                                 <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -517,7 +507,6 @@ const OrderDetails = ({ userData, setUserData }) => {
                             )}
                         </div>
 
-                        {/* Order Summary */}
                         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
                             <h2 className="text-lg font-bold text-slate-900 mb-4 pb-3 border-b border-slate-100">
                                 Order Summary

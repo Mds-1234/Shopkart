@@ -6,7 +6,6 @@ import { fileURLToPath } from "url"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// Ensure environment variables are loaded if this file is imported before index.js runtime
 const envPath = path.resolve(__dirname, "../.env")
 dotenv.config({ path: envPath })
 if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
@@ -47,16 +46,13 @@ const getRazorpayInstance = () => {
     return razorpayInstance
 }
 
-// Ensure sanitized keys in process.env for downstream usage
 const initialKeyId = sanitizeKey(process.env.RAZORPAY_KEY_ID)
 const initialKeySecret = sanitizeKey(process.env.RAZORPAY_KEY_SECRET)
 if (initialKeyId) process.env.RAZORPAY_KEY_ID = initialKeyId
 if (initialKeySecret) process.env.RAZORPAY_KEY_SECRET = initialKeySecret
 
-// Eager initialization for startup diagnostics
 getRazorpayInstance()
 
-// Proxy delegates all properties and methods to the dynamically resolved client
 const razorpay = new Proxy({}, {
     get(target, prop) {
         const instance = getRazorpayInstance()

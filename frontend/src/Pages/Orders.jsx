@@ -191,7 +191,6 @@ const Orders = ({ userData, setUserData }) => {
                                 key={order._id}
                                 className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition hover:border-slate-300"
                             >
-                                {/* Card Header */}
                                 <div className="border-b border-slate-100 bg-slate-50/70 px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                                         <div>
@@ -234,7 +233,6 @@ const Orders = ({ userData, setUserData }) => {
                                     </div>
                                 </div>
 
-                                {/* Items Preview */}
                                 <div className="p-6">
                                     <div className="divide-y divide-slate-100">
                                         {(order.items || []).map((item, idx) => (
@@ -274,7 +272,6 @@ const Orders = ({ userData, setUserData }) => {
                                         ))}
                                     </div>
 
-                                    {/* Card Footer */}
                                     <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                         <div className="text-xs text-slate-500">
                                             {order.shippingAddress && (

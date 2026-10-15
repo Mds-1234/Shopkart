@@ -164,7 +164,6 @@ export const verifyPayment = async (req, res) => {
             return res.status(400).json({ success: false, message: "Invalid payment signature" })
         }
 
-        // Atomically claim the transition from PENDING to PAID to prevent duplicate inventory deduction or verification
         const claimedOrder = await Order.findOneAndUpdate(
             { _id: shopKartOrderId, user: req.customer._id, paymentStatus: "PENDING" },
             {
@@ -185,14 +184,12 @@ export const verifyPayment = async (req, res) => {
             return res.status(400).json({ success: false, message: "Order cannot be verified in current state" })
         }
 
-        // Safely deduct stock now that we exclusively own the payment confirmation
         for (const item of claimedOrder.items) {
             await Product.findByIdAndUpdate(item.product, {
                 $inc: { stock: -item.quantity }
             })
         }
 
-        // Clear cart only after successful payment verification
         await Customer.findByIdAndUpdate(req.customer._id, { $set: { cart: [] } })
 
         return res.status(200).json({ success: true, message: "Payment verified and order placed", order: claimedOrder })
